@@ -1,6 +1,6 @@
 ﻿using Constants;
 
-namespace ShoppingListDAL.Models
+namespace Models
 {
     public class User
     {
@@ -15,6 +15,6 @@ namespace ShoppingListDAL.Models
         public DateTime CreationDate { get; set; }
         public string Role { get; set; } = ConstantsRepository.SimpleUser;
 
-        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Address>? Addresses { get; set; }
     }
 }

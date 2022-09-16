@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShoppingListDAL.Models;
-using ShoppingListDAL.Models.Requests;
-using ShoppingListDAL.Repositories;
+using Models;
+using Models.Requests;
+using ShoppingListBLL.Services;
+using ShoppingListDTO.Product;
 
 namespace ShoppingListAPI.Controllers
 {
@@ -9,28 +10,65 @@ namespace ShoppingListAPI.Controllers
     [Route("api/[controller]")]
     public class ProductController : Controller
     {
-       private readonly IProductRepository _productRepository;
-
-        public ProductController(IProductRepository productRepository)
+        readonly IProductService _productService;
+        
+        public ProductController(IProductService productService)
         {
-            _productRepository = productRepository;
+            _productService = productService;
         }
 
         [HttpGet("products")]
-        public List<Product> GetProducts()
+        public ListProductsDTO GetProducts()
         {
-            return _productRepository.ReadAll();
+            var productDTOList = new List<ProductDTO>();
+            var productList = _productService.FindAll().ListOfFoundProducts;
+
+            foreach (var product in productList)
+            {
+                productDTOList.Add(СonvertProductToDTO(product));
+            }
+
+            return new ListProductsDTO
+            {
+                products = productDTOList
+            };
         }
 
         [HttpGet("products/product/{id}")]
-        public Product? GetProductById(int id)
+        public FindProductDTO? GetProductById(int id)
         {
-            ProductFindRequest request = new ProductFindRequest
+            return new FindProductDTO
             {
-                Id = id
+                product = СonvertProductToDTO(_productService.FindById(new ProductFindRequest
+                {
+                    Id = id
+                }).FoundProduct)
             };
+        }
 
-            return _productRepository.ReadSingle(request);
+        private ProductDTO СonvertProductToDTO(Product product)
+        {
+            var errors = new List<string>();
+
+            if (product == null)
+            {
+                errors.Add("Product not Found");
+                return new ProductDTO
+                {
+                    validationErrors = errors
+                };
+            }
+            else
+            {
+                return new ProductDTO
+                {
+                    id = product.Id,
+                    name = product.Name,
+                    category = product.Category.Name,
+                    category_id = product.Category.Id,
+                    description = product.Description,
+                };
+            }
         }
     }
 }

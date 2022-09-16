@@ -1,4 +1,4 @@
-﻿namespace ShoppingListDAL.Models.Requests
+﻿namespace Models.Requests
 {
     public class ProductFindRequest
     {

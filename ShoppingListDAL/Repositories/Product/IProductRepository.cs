@@ -1,5 +1,5 @@
-﻿using ShoppingListDAL.Models;
-using ShoppingListDAL.Models.Requests;
+﻿using Models;
+using Models.Requests;
 
 namespace ShoppingListDAL.Repositories
 {

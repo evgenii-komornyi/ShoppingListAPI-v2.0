@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShoppingListDAL.Models;
+using Models;
 
 namespace ShoppingListDAL.Data
 {

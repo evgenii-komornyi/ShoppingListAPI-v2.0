@@ -1,4 +1,4 @@
-﻿namespace ShoppingListDAL.Models
+﻿namespace Models
 {
     public class Address
     {
@@ -10,6 +10,6 @@
         public string? FlatNumber { get; set; }
         public string? AdditionalInfo { get; set; }
         public string? Phone { get; set; }
-        public User User { get; set; }
+        public virtual User? User { get; set; }
     }
 }

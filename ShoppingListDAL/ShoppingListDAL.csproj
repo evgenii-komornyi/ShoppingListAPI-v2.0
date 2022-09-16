@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Constants\Constants.csproj" />
+    <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 
 </Project>
