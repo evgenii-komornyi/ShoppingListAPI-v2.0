@@ -16,7 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ShoppingListBLL\ShoppingListBLL.csproj" />
     <ProjectReference Include="..\ShoppingListDAL\ShoppingListDAL.csproj" />
+    <ProjectReference Include="..\ShoppingListDTO\ShoppingListDTO.csproj" />
   </ItemGroup>
 
 </Project>

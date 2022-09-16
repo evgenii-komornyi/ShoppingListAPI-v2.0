@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Models;
+using Models.Requests;
 using ShoppingListDAL.Data;
-using ShoppingListDAL.Models;
-using ShoppingListDAL.Models.Requests;
 
 namespace ShoppingListDAL.Repositories
 {
