@@ -5,11 +5,11 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingListAPI", "ShoppingListAPI\ShoppingListAPI.csproj", "{EE1D78C7-8B08-4458-A7AC-B5DB9DFC593F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingListDAL", "ShoppingListDAL\ShoppingListDAL.csproj", "{68ECEDB8-F4AC-4D5E-837C-31A34FCF3398}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingListDAL", "ShoppingListDAL\ShoppingListDAL.csproj", "{68ECEDB8-F4AC-4D5E-837C-31A34FCF3398}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingListDTO", "ShoppingListDTO\ShoppingListDTO.csproj", "{A10EF9CC-554C-4E94-B60B-713F402A27DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingListDTO", "ShoppingListDTO\ShoppingListDTO.csproj", "{A10EF9CC-554C-4E94-B60B-713F402A27DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Constants", "Constants\Constants.csproj", "{65C18531-F6C7-4FD3-B48D-A16F51943BB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Constants", "Constants\Constants.csproj", "{65C18531-F6C7-4FD3-B48D-A16F51943BB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

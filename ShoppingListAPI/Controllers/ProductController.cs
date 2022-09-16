@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShoppingListDAL.Models;
+using ShoppingListDAL.Models.Requests;
+using ShoppingListDAL.Repositories;
 
 namespace ShoppingListAPI.Controllers
 {
@@ -7,17 +9,28 @@ namespace ShoppingListAPI.Controllers
     [Route("api/[controller]")]
     public class ProductController : Controller
     {
-       private readonly ShoppingListContext _context;
+       private readonly IProductRepository _productRepository;
 
-        public ProductController(ShoppingListContext context)
+        public ProductController(IProductRepository productRepository)
         {
-            _context = context;
+            _productRepository = productRepository;
         }
 
         [HttpGet("products")]
         public List<Product> GetProducts()
         {
-            return _context.Products.Include(p => p.Category).ToList();
+            return _productRepository.ReadAll();
+        }
+
+        [HttpGet("products/product/{id}")]
+        public Product? GetProductById(int id)
+        {
+            ProductFindRequest request = new ProductFindRequest
+            {
+                Id = id
+            };
+
+            return _productRepository.ReadSingle(request);
         }
     }
 }
