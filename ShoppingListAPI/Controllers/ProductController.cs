@@ -66,6 +66,7 @@ namespace ShoppingListAPI.Controllers
                     name = product.Name,
                     category = product.Category.Name,
                     category_id = product.Category.Id,
+                    price = product.Price,
                     description = product.Description,
                 };
             }

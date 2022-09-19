@@ -14,15 +14,11 @@ namespace ShoppingListBLL.Validations
         {
             List<ProductValidationErrors> allErrors = new List<ProductValidationErrors>();
 
-            if (searchCriteria.Id == null)
+            if (searchCriteria.Id == 0)
             {
                 allErrors.Add(ProductValidationErrors.No_search_criteria);
             }
 
-            /*if (searchCriteria.Id != null)
-            {
-                allErrors.Add(ProductValidationErrors.Conflict_params);
-            }*/
             return allErrors;
         }
     }
