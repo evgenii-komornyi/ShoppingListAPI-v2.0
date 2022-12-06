@@ -15,8 +15,13 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IFileStorageRepository, FileStorageRepository>();
+builder.Services.AddScoped<IFileStorageService, FileStorageService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddTransient<ProductValidation>();
+builder.Services.AddTransient<CreateRequestValidation>();
 builder.Services.AddTransient<FindRequestValidation>();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -25,7 +30,10 @@ builder.Services.AddDbContext<ShoppingListContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString(ConstantsRepository.LocalConnectionString));
 });
-
+builder.Services.AddCors(p => p.AddPolicy("reactapp", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -34,10 +42,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("reactapp");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+ app.Run();

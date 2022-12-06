@@ -1,7 +1,7 @@
 ﻿namespace ShoppingListDTO.Product
 {
-    public class FindProductDTO
+    public class FindProductDTO : BasicDTO<string>
     {
-        public ProductDTO? product { get; set; }
+        public ProductByIdDTO? product { get; set; }
     }
 }

@@ -1,14 +1,16 @@
-﻿using Models.Errors;
+﻿using ShoppingListDTO.FileStorage;
 
 namespace ShoppingListDTO.Product
 {
-    public class ProductDTO : BasicDTO<string>
+    public class ProductDTO
     {
         public int id { get; set; }
-        public string? name { get; set; }
-        public string? category { get; set; }
-        public int category_id { get; set; }
+        public string title { get; set; }
+        public string brand { get; set; }
+        public string category { get; set; }
         public decimal price { get; set; }
-        public string? description { get; set; }
+        public bool isAvailable { get; set; }
+        public bool inStock { get; set; }
+        public ICollection<FileStorageDTO> files { get; set; }
     }
 }

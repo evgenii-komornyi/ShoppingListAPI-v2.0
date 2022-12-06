@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Models;
 using Models.Errors;
 using Models.Requests;
 using Models.Responses;
@@ -16,6 +17,54 @@ namespace ShoppingListBLL.Services
         {
             _repository = repository;
             _validation = validation;
+        }
+
+        public ProductCreateResponse CreateProduct(ProductCreateRequest request)
+        {
+            var response = new ProductCreateResponse();
+            List<ProductValidationErrors> validationErrors = _validation.CreateRequestValidation.Validate(request);
+            var dbErrors = new List<DatabaseErrors>();
+
+            if (validationErrors.Count != 0)
+            {
+                response.ValidationErrors = validationErrors;
+            }
+            else
+            {
+                try
+                {
+                    var product = AddProductToDB(request);
+
+                    if (product == null) throw new NullReferenceException("Product not found");
+
+                    response.Product = product;
+                }
+                catch (NullReferenceException)
+                {
+                    dbErrors.Add(DatabaseErrors.DB_CONNECTION_FAILED);
+
+                }
+                response.DBErrors = dbErrors;
+            }
+
+            return response;
+        }
+
+        private Product AddProductToDB(ProductCreateRequest request)
+        {
+            return _repository.Create(
+                new Product
+                {
+                    Title = request.Title,
+                    Brand = request.Brand,
+                    Price = request.Price,
+                    Description = request.Description,
+                    IsAvailable = request.IsAvailable,
+                    IsInStock = request.IsInStock,
+                    CreationDate = DateTime.Now,
+                    CategoryId = request.CategoryId
+                }
+            );
         }
 
         public ProductFindResponse FindAll()
@@ -39,7 +88,7 @@ namespace ShoppingListBLL.Services
         public ProductFindResponse FindById(ProductFindRequest request)
         {
             var response = new ProductFindResponse();
-            var validationErrors = _validation.FindRequestValidation.Validate(request);
+            List<ProductValidationErrors> validationErrors = _validation.FindRequestValidation.Validate(request);
             var dbErrors = new List<DatabaseErrors>();
 
             if (validationErrors.Count != 0)

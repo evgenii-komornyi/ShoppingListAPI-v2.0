@@ -3,6 +3,8 @@
     public enum ProductValidationErrors
     {
         Empty_name,
+        Empty_brand,
+        Brand_length_violation,
         Empty_price,
         Empty_category,
         Name_length_violation,
