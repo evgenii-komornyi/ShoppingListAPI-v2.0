@@ -46,13 +46,25 @@ namespace ShoppingListAPI.Controllers
         [HttpGet("products/{id}")]
         public FindProductDTO? GetProductById(int id)
         {
-            return new FindProductDTO
+            ProductFindResponse productResponse = _productService.FindById(new ProductFindRequest
             {
-                product = СonvertProductByIdToDTO(_productService.FindById(new ProductFindRequest
-                {
-                    Id = id
-                }).FoundProduct)
-            };
+                Id = id
+            });
+            var responseJson = new FindProductDTO();
+
+            if (productResponse.HasValidationErrors() || productResponse.HasDBErrors())
+            {
+                responseJson.validationErrors = ConvertErrorsToString(productResponse.ValidationErrors);
+                responseJson.dbErrors = productResponse.DBErrors;
+                responseJson.status = Status.Failed;
+            } 
+            else
+            {
+                responseJson.product = СonvertProductByIdToDTO(productResponse.FoundProduct);
+                responseJson.status = Status.Success;
+            }
+
+            return responseJson;
         }
 
         [HttpPost]
@@ -70,7 +82,6 @@ namespace ShoppingListAPI.Controllers
             else
             {
                 responseJson.newProduct = product;
-                
                 responseJson.status = Status.Success;
             }
 
@@ -87,7 +98,6 @@ namespace ShoppingListAPI.Controllers
             foreach (var file in files)
             {
                 filesList.Add(file.FileName);
-
                 isUploaded = _fileService.UploadFile(_environment.WebRootPath, file, productId);
                 SaveFiles(productId, file.FileName);
             }
