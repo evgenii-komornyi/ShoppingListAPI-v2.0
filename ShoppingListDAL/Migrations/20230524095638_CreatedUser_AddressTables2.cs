@@ -1,12 +1,13 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace ShoppingListDAL.Migrations
 {
-    public partial class CreatedUser_Address : Migration
+    /// <inheritdoc />
+    public partial class CreatedUser_AddressTables2 : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -63,13 +64,10 @@ namespace ShoppingListDAL.Migrations
                 column: "UserId1");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Addresses");
 
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }
